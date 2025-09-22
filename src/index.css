@@ -1,0 +1,232 @@
+/* Perfect Scrollbar */
+@import "perfect-scrollbar/css/perfect-scrollbar.css";
+
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS directives */
+@tailwind base;
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS directives */
+@tailwind components;
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS directives */
+@tailwind utilities;
+
+@layer base {
+  * {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply border-stonks-gray;
+  }
+
+  body {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply bg-stonks-dark text-stonks-light font-rajdhani;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 70%),
+      linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .wojak-card {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply bg-stonks-gray/90 backdrop-blur-sm rounded-lg shadow-2xl border-2 border-stonks-green/30;
+    box-shadow:
+      0 0 20px rgba(0, 255, 0, 0.1),
+      0 0 40px rgba(0, 255, 0, 0.05);
+  }
+
+  .wojak-button {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply bg-stonks-green hover:bg-stonks-accent text-stonks-dark font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .wojak-button-secondary {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply bg-stonks-gray/50 hover:bg-stonks-gray/70 text-stonks-light font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg border-2 border-stonks-gray/50 hover:border-stonks-accent/50;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .wojak-input {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply bg-stonks-gray/80 border-2 border-stonks-green/50 rounded-lg px-4 py-3 text-stonks-light focus:outline-none focus:border-stonks-accent focus:ring-2 focus:ring-stonks-accent/20;
+  }
+
+  .stonks-text {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply text-stonks-green font-bold;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .stonks-red {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind @apply directive */
+    @apply text-stonks-red font-bold;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .stonks-glow {
+    box-shadow:
+      0 0 20px rgba(0, 255, 0, 0.3),
+      0 0 40px rgba(0, 255, 0, 0.1);
+  }
+
+  .stonks-red-glow {
+    box-shadow:
+      0 0 20px rgba(255, 0, 0, 0.3),
+      0 0 40px rgba(255, 0, 0, 0.1);
+  }
+
+  .glow-button {
+    background: rgba(34, 197, 94, 0.1);
+    border: 2px solid #22c55e;
+    color: #22c55e;
+    box-shadow:
+      0 0 15px rgba(34, 197, 94, 0.4),
+      inset 0 0 15px rgba(34, 197, 94, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .glow-button:hover {
+    background: rgba(34, 197, 94, 0.2);
+    box-shadow:
+      0 0 25px rgba(34, 197, 94, 0.6),
+      inset 0 0 20px rgba(34, 197, 94, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .glow-button-red {
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid #ef4444;
+    color: #ef4444;
+    box-shadow:
+      0 0 15px rgba(239, 68, 68, 0.4),
+      inset 0 0 15px rgba(239, 68, 68, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .glow-button-red:hover {
+    background: rgba(239, 68, 68, 0.2);
+    box-shadow:
+      0 0 25px rgba(239, 68, 68, 0.6),
+      inset 0 0 20px rgba(239, 68, 68, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* Memestonks Background Effects */
+  .stonks-bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 0, 0.03) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 0, 0, 0.03) 2px,
+        rgba(255, 0, 0, 0.03) 4px
+      );
+  }
+
+  .stonks-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+  }
+
+  /* Animated background elements */
+  @keyframes stonks-pulse {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  .stonks-pulse {
+    animation: stonks-pulse 3s ease-in-out infinite;
+  }
+
+  /* Trading Floor Animations */
+  @keyframes stonks-flash {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes stonks-glow-pulse {
+    0%,
+    100% {
+      box-shadow:
+        0 0 20px rgba(0, 255, 0, 0.3),
+        0 0 40px rgba(0, 255, 0, 0.1);
+    }
+    50% {
+      box-shadow:
+        0 0 30px rgba(0, 255, 0, 0.5),
+        0 0 60px rgba(0, 255, 0, 0.2);
+    }
+  }
+
+  .stonks-flash {
+    animation: stonks-flash 2s ease-in-out infinite;
+  }
+
+  .stonks-glow-pulse {
+    animation: stonks-glow-pulse 2s ease-in-out infinite;
+  }
+
+  /* Stock Market Style Progress Bars */
+  .stonks-progress {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 255, 0, 0.1) 0%,
+      rgba(0, 255, 0, 0.3) 50%,
+      rgba(0, 255, 0, 0.1) 100%
+    );
+    background-size: 200% 100%;
+    animation: stonks-progress-shine 3s ease-in-out infinite;
+  }
+
+  @keyframes stonks-progress-shine {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
