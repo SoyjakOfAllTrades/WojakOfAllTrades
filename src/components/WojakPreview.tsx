@@ -1,7 +1,9 @@
 import { Eye, Glasses, HardHat, Sparkles, User, Zap } from 'lucide-react';
 import type React from 'react';
+import { useState } from 'react';
 import type { WojakCharacter } from '../types/wojak';
 import { RarityBadge } from './RarityBadge';
+import { NFTMintingModal } from './NFTMintingModal';
 
 interface WojakPreviewProps {
   wojak: WojakCharacter;
@@ -10,6 +12,18 @@ interface WojakPreviewProps {
 }
 
 export const WojakPreview: React.FC<WojakPreviewProps> = ({ wojak, onMint, isMinting }) => {
+  const [showNFTModal, setShowNFTModal] = useState(false);
+
+  const handleMintClick = () => {
+    setShowNFTModal(true);
+  };
+
+  const handleNFTMintSuccess = (txHash: string, tokenId?: number) => {
+    console.log('NFT minted successfully:', { txHash, tokenId });
+    // Call the original mint handler to update local storage
+    onMint();
+  };
+
   const getRarity = () => {
     const traits = [wojak.template, wojak.hat, wojak.glasses, wojak.mask];
 
@@ -114,7 +128,7 @@ export const WojakPreview: React.FC<WojakPreviewProps> = ({ wojak, onMint, isMin
         <div className="relative z-10 mt-auto">
           <button
             type="button"
-            onClick={onMint}
+            onClick={handleMintClick}
             disabled={isMinting || !wojak.name?.trim()}
             className={`flex w-full transform items-center justify-center space-x-3 rounded-2xl px-6 py-4 font-rajdhani font-semibold shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 ${
               isMinting
@@ -138,6 +152,14 @@ export const WojakPreview: React.FC<WojakPreviewProps> = ({ wojak, onMint, isMin
           </button>
         </div>
       </div>
+
+      {/* NFT Minting Modal */}
+      <NFTMintingModal
+        isOpen={showNFTModal}
+        onClose={() => setShowNFTModal(false)}
+        wojak={wojak}
+        onMintSuccess={handleNFTMintSuccess}
+      />
     </div>
   );
 };
