@@ -91,12 +91,18 @@ export const WalletButton: React.FC = () => {
   };
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div className="relative inline-block" ref={containerRef}>
       {/* Main Wallet Button */}
-      <button
-        type="button"
+      <div
         onClick={handleWalletButtonClick}
-        disabled={isConnecting}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleWalletButtonClick();
+          }
+        }}
         className={`
           flex items-center space-x-2 rounded-xl px-4 py-3 
           font-rajdhani font-semibold transition-all duration-300
@@ -106,6 +112,7 @@ export const WalletButton: React.FC = () => {
               ? 'cursor-not-allowed bg-stonks-gray/60 text-stonks-light/50' 
               : 'cursor-pointer border border-stonks-light/20 text-stonks-light/70 hover:bg-stonks-gray/30 hover:text-stonks-light hover:border-stonks-light/40'
           }
+          ${isConnecting ? '' : 'hover:scale-[1.02] active:scale-[0.98]'}
         `}
       >
         {web3State.isConnected ? (
@@ -133,7 +140,7 @@ export const WalletButton: React.FC = () => {
             <span className="hidden sm:inline">CONNECT</span>
           </>
         )}
-      </button>
+      </div>
 
       {/* Dropdown Menu */}
       {web3State.isConnected && showDropdown && (
