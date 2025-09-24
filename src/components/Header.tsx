@@ -1,6 +1,7 @@
 import { ArrowLeft, Grid3X3, Home, Palette } from 'lucide-react';
 import type React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { WalletButton } from './WalletButton';
 
 interface HeaderProps {
   onBackToBuilder: () => void;
@@ -64,18 +65,26 @@ export const Header: React.FC<HeaderProps> = ({ onBackToBuilder }) => {
                   <Grid3X3 className="h-4 w-4" />
                   <span>GALLERY</span>
                 </button>
+                
+                {/* Wallet Connection Button */}
+                <WalletButton />
               </nav>
             )}
 
             {currentView === 'detail' && (
-              <button
-                type="button"
-                onClick={onBackToBuilder}
-                className="flex items-center space-x-2 rounded-xl border border-stonks-green/40 bg-gradient-to-r from-stonks-gray/20 to-stonks-gray/10 px-5 py-3 font-rajdhani font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:border-stonks-green/60 hover:from-stonks-gray/30 hover:to-stonks-gray/20 hover:shadow-xl active:scale-95"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <span>Back to Builder</span>
-              </button>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={onBackToBuilder}
+                  className="flex items-center space-x-2 rounded-xl border border-stonks-green/40 bg-gradient-to-r from-stonks-gray/20 to-stonks-gray/10 px-5 py-3 font-rajdhani font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:border-stonks-green/60 hover:from-stonks-gray/30 hover:to-stonks-gray/20 hover:shadow-xl active:scale-95"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  <span>Back to Builder</span>
+                </button>
+                
+                {/* Wallet Connection Button */}
+                <WalletButton />
+              </div>
             )}
           </div>
         </div>
