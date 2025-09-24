@@ -1,5 +1,7 @@
 import { AlertCircle, CheckCircle, ExternalLink, Wallet, X } from 'lucide-react';
 import type React from 'react';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useWeb3 } from '../hooks/useWeb3';
 import { useNFTMinting } from '../hooks/useNFTMinting';
 
@@ -11,6 +13,26 @@ interface WalletConnectorProps {
 export const WalletConnector: React.FC<WalletConnectorProps> = ({ isOpen, onClose }) => {
   const { web3State, isConnecting, error, connectWallet, disconnectWallet, clearError } = useWeb3();
   const { contractConfig } = useNFTMinting();
+
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -28,25 +50,39 @@ export const WalletConnector: React.FC<WalletConnectorProps> = ({ isOpen, onClos
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-      <div className="relative mx-4 w-full max-w-md">
-        {/* Close button */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute -right-2 -top-2 z-10 rounded-full bg-stonks-accent p-2 text-stonks-dark transition-all hover:scale-105 hover:bg-stonks-green"
-        >
-          <X className="h-4 w-4" />
-        </button>
+  // Handle backdrop click
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
 
+  return createPortal(
+    <div 
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-auto"
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="wallet-modal-title"
+    >
+      <div className="relative w-full max-w-md my-auto">
         {/* Modal content */}
-        <div className="rounded-2xl border border-stonks-green/30 bg-gradient-to-br from-stonks-darker via-stonks-gray to-stonks-darker p-6 shadow-2xl backdrop-blur-lg">
-          <div className="mb-6 text-center">
+        <div className="relative rounded-2xl border border-stonks-green/30 bg-gradient-to-br from-stonks-darker via-stonks-gray to-stonks-darker p-6 shadow-2xl backdrop-blur-lg">
+          {/* Close button */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-4 z-10 rounded-full bg-stonks-accent/80 hover:bg-stonks-accent p-2 text-stonks-dark transition-all hover:scale-105 shadow-lg"
+            aria-label="Close modal"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          <div className="mb-6 text-center pt-4">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-stonks-green/20 to-stonks-accent/20">
               <Wallet className="h-8 w-8 text-stonks-accent" />
             </div>
-            <h2 className="stonks-text mb-2 font-bold font-orbitron text-xl">
+            <h2 id="wallet-modal-title" className="stonks-text mb-2 font-bold font-orbitron text-xl">
               Connect Wallet
             </h2>
             <p className="font-medium font-rajdhani text-sm text-stonks-light/70">
@@ -157,8 +193,16 @@ export const WalletConnector: React.FC<WalletConnectorProps> = ({ isOpen, onClos
               </div>
             </div>
           )}
+          
+          {/* Help text for closing modal */}
+          <div className="mt-4 text-center">
+            <p className="text-stonks-light/50 text-xs">
+              Press <kbd className="bg-stonks-light/10 px-1 rounded">Esc</kbd> or click outside to close
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
